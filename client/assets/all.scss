@@ -1,0 +1,26 @@
+@import './variable.scss';
+
+button{
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+}
+
+button:hover{
+  color: white;
+  background-color: $dark-primary;
+}
+
+button:active{
+  color: $dark-primary;
+  background-color: white;
+}
+
+h2{
+  font-family: cursive;
+  font-size: 30px;
+  color: $primary-color;
+}
+

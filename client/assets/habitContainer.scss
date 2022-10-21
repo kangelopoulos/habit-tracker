@@ -1,0 +1,57 @@
+@import './variable.scss';
+.habitContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.habitButtonsContainer{
+  border-bottom: 1px solid $primary-color;
+  display: flex;
+  justify-content: center;
+  width: 80vw;
+  padding-bottom: 40px;
+  flex-wrap: wrap;
+  .false{
+    background-color: $bad-color;
+    color: white;
+  }
+  .false:hover{
+    background-color: $dark-bad;
+  }
+  .false.clicked{
+    background-color: darken($dark-bad, 10%);
+  }
+  .false:active{
+    background-color: white;
+    border: 1px solid $dark-bad;
+    color: $dark-bad;
+  }
+  .true{
+    background-color: $good-color;
+    color: white;
+  }
+  .true:hover{
+    background-color: $dark-good;
+  }
+  .true:active{
+    background-color: white;
+    border: 1px solid $dark-good;
+    color: $dark-good;
+  }
+  .true.clicked{
+    background-color: darken($dark-good, 10%);
+  }
+  
+}
+
+#graph{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

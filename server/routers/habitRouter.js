@@ -15,15 +15,15 @@ router.get('/:user_id', habitController.get, (req,res) => {
  * Associates the new habit with a specific user
  */
 router.post('/:user_id', habitController.create, habitController.createUserHabit, (req, res) => {
-  return res.status(200);
+  return res.status(200).json(res.locals.habit)
 });
 
 /**
  * Removes a habit from a user
  * Deletes all associated data
  */
-router.delete('/:user_id', habitController.deleteUserData, habitController.deleteUserHabit, (req, res) => {
-  return res.status(200);
+router.delete('/:user_id', habitController.deleteUserHabit, (req, res) => {
+  return res.sendStatus(200);
 });
 
 /**

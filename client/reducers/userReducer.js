@@ -4,12 +4,15 @@ const initialState = {
   username: '',
   password: '',
   loggedIn: false,
+  user_id: '',
+  firstName: '',
+  habits: []
 };
 
-const loginReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch(action.type){
     case types.SET_USERNAME:
-      console.log('loginRecuer SET_USERNAME', action.payload);
+      console.log('loginReducer SET_USERNAME', action.payload);
       return {
         ...state,
         username: action.payload
@@ -25,7 +28,10 @@ const loginReducer = (state = initialState, action) => {
       if(action.payload) {
         return {
           ...state,
-          loggedIn: true
+          loggedIn: true,
+          firstName: action.payload.firstName,
+          habits: action.payload.habits,
+          user_id: action.payload._id,
         }
       } else {
         return {
@@ -34,11 +40,15 @@ const loginReducer = (state = initialState, action) => {
           password: ''
         }
       }
-      
+    case 'ADD_HABIT':
+      return {
+        ...state,
+        habits: [...state.habits, action.payload]
+      }
     default: {
       return state;
     }
   }
 };
 
-export default loginReducer;
+export default userReducer;

@@ -1,0 +1,10 @@
+$primary-color: #456990;
+$secondary-color: #EEB868;
+$tertiary-color: #49BEAA;
+$bad-color: #EF767A;
+$good-color: #49DCB1;
+$dark-primary: darken($primary-color, 10%);
+$dark-secondary: darken($secondary-color, 10%);
+$dark-tertiary: darken($tertiary-color, 10%);
+$dark-good: darken($good-color, 10%);
+$dark-bad: darken($bad-color, 10%);

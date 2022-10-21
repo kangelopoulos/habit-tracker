@@ -3,13 +3,14 @@ const app = express();
 const path = require('path');
 const userRouter = require('./routers/userRouter');
 const habitRouter = require('./routers/habitRouter');
-const metricsRouter = require('./routers/habitRouter');
+const metricRouter = require('./routers/metricRouter');
 
 /**
  * Handle parsing request body
  */
-app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /**
  * Handle requests for static files
@@ -26,7 +27,7 @@ if(process.env.NODE_ENV === 'production'){
  */
 app.use('/user', userRouter);
 app.use('/habit', habitRouter);
-app.use('/metrics', metricsRouter);
+app.use('/metric', metricRouter);
 
 app.use((err, req, res, next) => {
   const defaultErr = {

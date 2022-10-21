@@ -17,6 +17,10 @@ const Schema = mongoose.Schema;
  * Expires: never
  */
 const userSchema = new Schema({
+  firstName: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -28,6 +32,7 @@ const userSchema = new Schema({
   habits: [{
     title: String,
     date: Date,
+    isGood: Boolean,
     id: {
       type: Schema.Types.ObjectId,
       ref: 'habit'
@@ -61,13 +66,23 @@ const Habit = mongoose.model('habit', habitSchema);
  * Stores: username (User), date (Date), complete (Bool), habit (Habit)
  * Expires: 1 year
  */
-const habitMetricSchema = new Schema({
-  habit: {
-    type: Schema.Types.ObjectId,
-    ref: 'habit',
-    required: true,
-  },
-  username: {
+const habitMetricsSchema = new Schema({
+  habitsCompleted: [{
+    name: {
+      type: String,
+      required: true,
+    },
+    weight: {
+      type: Number,
+      required: true,
+    },
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'habit',
+      required: true,
+    }
+  }],
+  user_id: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'user',
@@ -77,12 +92,8 @@ const habitMetricSchema = new Schema({
     required: true,
     expires: 31536000,
   },
-  completed: {
-    type: Boolean,
-    required: true,
-  }
 });
-const HabitMetric = mongoose.model('habitMetric', habitMetricSchema);
+const HabitMetrics = mongoose.model('habitMetrics', habitMetricsSchema);
 
 
 /**
@@ -159,5 +170,5 @@ module.exports = {
   IntraDayMetric,
   DailyMetric,
   Habit,
-  HabitMetric,
+  HabitMetrics,
 }

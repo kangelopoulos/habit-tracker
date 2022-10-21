@@ -1,0 +1,30 @@
+@import './variable.scss';
+
+.userChoicesContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $secondary-color;
+  border-bottom: 1px solid $primary-color;
+  h1{
+    color: $primary-color;
+    font-family: cursive;
+    font-weight: 500;
+    font-size: 60px;
+    margin: 10px 0px 0px 0px;
+  }
+  button{
+    margin: 5px;
+    background-color: $primary-color;
+    border-color: #e9a33b;
+    color: white;
+  }
+}
+.userChoiceButtons{
+  display: flex;
+  justify-content: space-around;
+  flex-grow: 1;
+  padding: 5px;
+  border-top: 1px solid $primary-color;
+}

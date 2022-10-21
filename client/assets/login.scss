@@ -1,0 +1,23 @@
+@import './variable.scss';
+
+#login{
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  position: absolute;;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: cursive;
+  color: $primary-color;
+  background-color: $secondary-color;
+  .input{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+  }
+  button{
+    background-color: $primary-color;
+    justify-self: end;
+  }
+}

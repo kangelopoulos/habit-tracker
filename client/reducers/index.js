@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import loginReducer from './loginReducer';
+import userReducer from './userReducer';
+import habitsReducer from './habitsReducer';
+import popUpReducer from './popUpReducer';
 
 const reducers = combineReducers({
-  login: loginReducer
+  user: userReducer,
+  habits: habitsReducer,
+  popUp: popUpReducer,
 });
 
 export default reducers;

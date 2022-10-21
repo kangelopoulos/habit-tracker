@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import HabitContainer from './HabitContainer';
 import Login from './Login';
 import { connect } from 'react-redux';
-
+import UserChoicesContainer from './UserChoicesContainer';
+import '../assets/all.scss'
 
 const mapStateToProps = state => ({
-  loggedIn: state.login.loggedIn
+  loggedIn: state.user.loggedIn
 });
 
 export class App extends Component {
@@ -15,7 +16,7 @@ export class App extends Component {
   // conditional rendering on whether the user is loggedIn
   render() {
     return <div>
-      {this.props.loggedIn ? <HabitContainer /> : <Login />}
+      {this.props.loggedIn ? <div><UserChoicesContainer /><HabitContainer /></div> : <Login />}
     </div>
   }
 }

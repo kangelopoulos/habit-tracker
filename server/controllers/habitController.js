@@ -12,8 +12,9 @@ const habitController = {};
 habitController.get = (req, res, next) => {
   console.log('habitController.get');
   models.User.findOne({
-    id: req.params.user_id,
+    _id: req.params.user_id,
   }).then(data => {
+    console.log(data);
     res.locals.habits = data.habits;
     return next();
   }).catch(err => {
@@ -32,7 +33,7 @@ habitController.get = (req, res, next) => {
  * Locals: return - new habit object id?
  */
 habitController.create = (req, res, next) => { 
-  console.log('habitController.create');
+  console.log('habitController.create', req.body);
   // Attempt to find a matching habit in the system
   models.Habit.findOne({
     habit_type: req.body.habit,
@@ -44,11 +45,14 @@ habitController.create = (req, res, next) => {
           habit_type: req.body.habit,
           isGood: req.body.isGood,
         }).then(data => {
+          console.log('returning');
           res.locals.habit_id = data.id;
+          res.locals.isGood = data.isGood;
           return next();
         })
       } else { // Or return it
         res.locals.habit_id = data.id;
+        res.locals.isGood = data.isGood;
         return next();
       }
   }).catch(err => {
@@ -68,10 +72,10 @@ habitController.create = (req, res, next) => {
  */
 habitController.createUserHabit = (req, res, next) => {
   let success = true;
-  console.log('habitController.create');
+  console.log('habitController.createUserHabit');
   // Filter for a user with this id that doesn't have this habit
   const filter = { 
-    id: req.params.user_id,
+    _id: req.params.user_id,
     habits: { 
       $not: { $elemMatch: { id: res.locals.habit_id } }
     }
@@ -81,31 +85,22 @@ habitController.createUserHabit = (req, res, next) => {
     title: req.body.habit,
     date: new Date(),
     id: res.locals.habit_id,
+    isGood: res.locals.isGood
   }}}
+  console.log(req.params.user_id);
   // Find the user and update if they don't already have the habit
   models.User.findOneAndUpdate(filter, update, {new: true})
     .then(data => {
-      if(data === null) 
+      if(data) res.locals.habit = data.habits[data.habits.length - 1];
+      else res.locals.habit = {};
       return next();
     })
     .catch(err => {
       return next({
-        log: 'error in habitController.create',
+        log: 'error in habitController.createUserHabit',
         message: { err: err }
       })
     })
-};
-
-/**
- * habitController.deleteUserData 
- * Purpose: Delete all data associated with a specific habit and user.
- * Params: user_id (string)
- * Body: habit (string)
- * Locals: 
- */
-habitController.deleteUserData = (req, res, next) => {
-
-  return(next());
 };
 
 /**
@@ -116,9 +111,19 @@ habitController.deleteUserData = (req, res, next) => {
  * Locals: deleted (bool)
  */
 habitController.deleteUserHabit = (req, res, next) => {
-  models.User.findOne({
-    id: req.params.id,
-  })
+  console.log('in habitController.deleteUserHabit')
+  filter = { _id: req.params.user_id };
+  update = { $pull: { habits: { title: req.body.habit } } };
+  models.User.findOneAndUpdate(filter, update, {new: true})
+    .then(data => {
+      return next();
+    })
+    .catch(err => {
+      next({
+        log: 'error in habitController.deleteUserHabit',
+        message: { err: err }
+      })
+    })
 };
 
 module.exports = habitController;

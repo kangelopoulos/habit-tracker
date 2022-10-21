@@ -1,0 +1,40 @@
+@import './variable.scss';
+.popup{
+  background-color: $secondary-color;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  position: absolute;
+  color: $primary-color;
+  font-family: cursive;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .popUpHeading{
+    display: flex;
+    align-items: center;
+    button{
+      padding: 5px 10px;
+    }
+  }
+  label{
+    font-size: 18px;
+  }
+  h2{
+    margin: 10px;
+  }
+  .innerDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 50px;
+  }
+
+  .radioButtonContainer{
+    display: flex;
+
+    *{
+      padding: 5px;
+    }
+  }
+}

@@ -27,6 +27,7 @@ userController.getUser = (req, res, next) => {
 userController.postUser = (req, res, next) => {
   console.log('userController.postUser');
   models.User.create({
+    firstName: req.body.firstName,
     username: req.body.username,
     password: req.body.password,
   }).then(data => {
@@ -39,5 +40,6 @@ userController.postUser = (req, res, next) => {
     });
   });
 };
+
 
 module.exports = userController;

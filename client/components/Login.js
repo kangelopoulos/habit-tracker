@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-
+import '../assets/login.scss';
 /**
  * 
  *  Login 
@@ -12,15 +12,16 @@ import * as actions from '../actions/actions';
 
 // username, password
 const mapStateToProps = state => ({
-  username: state.login.username,
-  password: state.login.password,
+  username: state.user.username,
+  password: state.user.password,
+  loggedIn: state.user.loggedIn,
 });
 
 // setUsernameActionCreator, setPasswordActionCreator
 const mapDispatchToProps = dispatch => ({
   setUsername: (username) => dispatch(actions.setUsernameActionCreator(username)),
   setPassword: (password) => dispatch(actions.setPasswordActionCreator(password)),
-  loginAttempt: (authenticated) => dispatch(actions.loginAttemptActionCreator(authenticated))
+  loginAttempt: (data) => dispatch(actions.loginAttemptActionCreator(data)),
 });
 
 const Login = props => {
@@ -41,20 +42,25 @@ const Login = props => {
      * as parameters.
      */
     fetch(`/user/${props.username}/${props.password}`)
-        .then(data => data.json())
-        .then(data => {
-          if(data) props.loginAttempt(true);
-          else props.loginAttempt(false);
-        });
+      .then(data => data.json())
+      .then(data => {
+        props.loginAttempt(data);
+        console.log(props);
+      }).catch(err => console.log(err));
   };
   return(
-    <div id="login">
-      <label htmlFor="username">Username: </label>
-      <input onChange={handleUsernameChange} type="text" name="username" placeholder="Username"/>
-      <label htmlFor="password" name="password">Password: </label>
-      <input onChange={handlePasswordChange} type="text" name = "password" placeholder="password"/>
-      <button onClick={handleSubmit}>Submit</button>
+    <div id="loginLarge">
+      <div id="login">
+        <div className='input'>
+          <label htmlFor="username">Username: </label>
+        <input onChange={handleUsernameChange} type="text" name="username" placeholder="Username"/>
+        <label htmlFor="password" name="password">Password: </label>
+        <input onChange={handlePasswordChange} type="text" name = "password" placeholder="password"/>
+        </div>
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
+    
   );
 }
 
